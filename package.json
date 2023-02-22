@@ -1,14 +1,16 @@
 {
-  "name": "node-js",
+  "name": "seance2node",
   "version": "1.0.0",
-  "description": "",
-  "main": "tp0.js",
+  "main": "exemple.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "read-file": "^0.2.0"
-  }
+    "nodemon": "^2.0.20"
+  },
+  "devDependencies": {},
+  "description": ""
 }
