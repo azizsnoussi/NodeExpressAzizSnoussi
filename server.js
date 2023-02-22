@@ -1,19 +1,6 @@
-const express = require('express');
-
-var app = express();
-
-
-
-app.get('/test',(req,res,next)=>{
-console.log("Hello",req);
-res.json({message: " hello"});
-});
+const http = require("http");
+const app = require("./app.js");
+const server = http.createServer(app);
+server.listen(3000);
 
 
-
-app.use('/test',(req,res,next)=>{
-    console.log("Hello",req);
-    res.json({message: " hello"});
-    });
-
-app.listen(8080);
