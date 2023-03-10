@@ -1,24 +1,23 @@
 const express = require('express');
-const createError = require('http-errors');
-const mongoose = require('mongoose');
-
-const dbConfig = require('./config/mongodb.json');
-
-const studentsRouter = require('./routes/students');
-
 const app = express();
+const path=require('path');
+const chatRouter=require('./routes/chat');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.set('view engine', 'twig');
+app.set("views",path.join(__dirname,"views"));
+app.set("view engine","twig");
 
-app.use('/students', studentsRouter);
+app.use("/chat",chatRouter);
 
-
-app.use((req, res, next) => {
-    next(createError(404));
+const server = app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000/chat');
 });
+const io=require('socket.io')(server);
 
-mongoose.connect(dbConfig.mongo.uri, {useNewUrlParser: true, useUnifiedTopology: true},()=>console.log("Connected to DB 🚀"));
+io.on("connection",(socket)=>{
+    console.log("New user connected");
+    io.emit('msg','a new user has been connected !');
 
-module.exports = app;
+    socket.on('disconnect',()=>{
+        console.log("User disconnected");
+    });
+});
